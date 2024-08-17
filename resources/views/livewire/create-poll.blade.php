@@ -1,6 +1,7 @@
 <div>
     <form wire:submit.prevent="createPoll">
         <label>Poll title</label>
+        {{-- .live est pour avoir les validation en direct --}}
         <input type="text" wire:model.live="title"/>
         {{-- Titre actuel: {{$title}} --}}
         @error('title')
@@ -17,14 +18,14 @@
             @foreach ($options as $index=>$option)
                 <div class="mb-4">
                     {{-- {{$index}} - {{$option}} --}}
-                    <label>Option {{$index +1}}</label>
+                    <label>Option {{$index + 1}}</label>
                     <div class="flex gap-2">
                         <input type="text" wire:model.live="options.{{$index}}"/>
-                        @error('options.{{$index}}')
-                            <div class="text-red-500">{{$message}}</div>
-                         @enderror
                         <button class="btn" wire:click.prevent="removeOption({{$index}})">Supprimer</button>
                     </div>
+                    @error('options.'.$index)
+                            <div class="text-red-500">{{$message}}</div>
+                    @enderror
                 </div>
             @endforeach
         </div>

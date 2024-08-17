@@ -10,10 +10,18 @@ use Livewire\Attributes\Validate;
 class CreatePoll extends Component
 {
     // les variables public dans un componement livewire est accessible dans la vue correspondante
-    #[Validate('required|min:3|max:255')]
+    #[Validate('required', message:'Le titre ne peut pas être vide')]
+    #[Validate('min:3', message:'min 3 lettre')]
+    #[Validate('max:255', message:'max 255 lettre')]
     public $title;
-    #[Validate('required|array|min:1|max:10')]
-    // #[Validate('required|min:1|max:255')]
+    #[Validate([
+        'options' => 'required|array|min:1|max:10',
+        'options.*' => 'required|min:3|max:255',
+    ], message:[
+        'options.*.required' => 'l\'option ne peut pas être vide' ,
+        'options.*.min' => 'il faut min 3 lettre',
+        'option.array' => 'il faut au moin une option'
+    ])]
     public $options = ['premier'];
 
     
