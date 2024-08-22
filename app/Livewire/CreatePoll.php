@@ -69,6 +69,8 @@ class CreatePoll extends Component
         // apres soumission, on px reset les champs title et option
         $this->reset(['title', 'options']);
         /* #endregion */
+        // emit declenche ou emet un évenement
+        $this->dispatch('pollCreated');
     }
 
     // cette methode agit comme un constructeur
